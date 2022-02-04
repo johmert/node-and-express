@@ -11,6 +11,10 @@ const sayHello = (req, res, next) => {
     res.send(content);
 };
 
+const sayGoodbye = (req, res) => {
+    res.send("Sorry to see you go!");
+}
+
 const saySomething = (req, res) => {
     //params set in url like :greeting
     const greeting = req.params.greeting;
@@ -24,6 +28,8 @@ const morgan = require("morgan");
 app.use(morgan("dev"));
 //creates a path to "/hello" that runs the sayHello middleware function
 app.get("/hello", sayHello);
+//order matters - if route has multiple paths, make sure to order accordingly
+app.get("/say/goodbye", sayGoodbye);
 //creates a path to "/say/:greeting" that runs saySomething
 // go to localhost:8080/say/hello?name=world to see "hello, world!"
 app.get("/say/:greeting", saySomething);
