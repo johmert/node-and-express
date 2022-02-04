@@ -7,15 +7,9 @@ const sayHello = (req, res, next) => {
     res.send("Hello!");
 };
 
-// middleware function
-const logging = (req, res, next) => {
-    // log it
-    console.log("A request is being made!");
-    // after function body, move on to next middleware function
-    next();
-};
+const morgan = require("morgan");
 
-app.use(logging);
+app.use(morgan("dev"));
 app.use(sayHello);
 
 
