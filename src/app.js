@@ -10,7 +10,8 @@ const sayHello = (req, res, next) => {
 const morgan = require("morgan");
 
 app.use(morgan("dev"));
-app.use(sayHello);
+//creates a path to "/hello" that runs the sayHello middleware function
+app.get("/hello", sayHello);
 
 
 module.exports = app;
