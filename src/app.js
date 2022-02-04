@@ -33,6 +33,24 @@ app.get("/say/goodbye", sayGoodbye);
 //creates a path to "/say/:greeting" that runs saySomething
 // go to localhost:8080/say/hello?name=world to see "hello, world!"
 app.get("/say/:greeting", saySomething);
+//state route to cause some errors
+app.get("/states/:abbreviation", (req, res, next) => {
+    const abbreviation = req.params.abbreviation;
+    if (abbreviation.length !== 2) {
+      next("State abbreviation is invalid.");
+    } else {
+      res.send(`${abbreviation} is a nice state, I'd like to visit.`);
+    }
+  });
+//Not-Found handler
+app.use((req, res, next) => {
+    res.send(`the route ${req.path} does not exist`);
+});
+//Error handler
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.send(err);
+});
 
 
 module.exports = app;
